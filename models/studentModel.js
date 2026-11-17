@@ -6,6 +6,20 @@ export const fetch = async () => {
   return rows;
 };
 
+export const findStudentByNameAndEmail = async (name, email) => {
+  const [rows] = await pool.query("SELECT * FROM student WHERE name = ? AND email = ?",
+     [name, email]
+    );
+  return rows;
+}
+
+export const findStudentById = async (id) => {
+  const [rows] = await pool.query("SELECT * FROM student WHERE id = ?",
+     [id]
+    );
+  return rows;
+}
+
 // CREATE
 export const insert = async (student) => {
     const [result] = await pool.query(

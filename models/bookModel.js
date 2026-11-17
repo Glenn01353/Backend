@@ -4,7 +4,21 @@ import pool from '../config/db.js';
 export const fetch = async () => {
   const [rows] = await pool.query('SELECT * FROM book');
   return rows;
-};
+}
+
+export const findBookByNameAndAuthor = async (name, author) => {
+  const [rows] = await pool.query("SELECT * FROM book WHERE name = ? AND author = ?",
+     [name, author]
+    );
+  return rows;
+}
+
+export const findBookById = async (id) => {
+  const [rows] = await pool.query("SELECT * FROM book WHERE id = ?",
+     [id]
+    );
+  return rows;
+}
 
 // CREATE
 export const insert = async (book) => {
@@ -14,7 +28,7 @@ export const insert = async (book) => {
     );
 
     return result.insertId;
-};
+}
 
 // UPDATE 
 export const update = async (id, book) => {
@@ -24,7 +38,7 @@ export const update = async (id, book) => {
   );
 
   return result.affectedRows;
-};
+}
 
 // DELETE 
 export const remove = async (id) => {
@@ -34,4 +48,4 @@ export const remove = async (id) => {
   );
 
   return result.affectedRows;
-};
+}

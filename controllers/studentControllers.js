@@ -5,6 +5,7 @@ export const fetchAllStudents = async (req, res) => {
   try {
     const students = await studentService.fetchAllStudents();
     res.status(200).json(students);
+
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -36,7 +37,7 @@ export const createStudent = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      error: 'Internal Server Error'
+      error: `${error.message || "Internal Server Error"}`
     });
   }
 };
@@ -53,8 +54,8 @@ export const editStudent = async (req, res) => {
       });
     }
 
-    const student = { name, email };
-    const result = await studentService.editStudent(id, student);
+    const student = { id, name, email };
+    const result = await studentService.editStudent(student);
 
     if (result === 0) {
       return res.status(404).json({
@@ -70,7 +71,7 @@ export const editStudent = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      error: 'Internal Server Error'
+      error: `${error.message || "Internal Server Error"}`
     });
   }
 };
@@ -96,7 +97,7 @@ export const deleteStudent = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      error: 'Internal Server Error'
+      error: `${error.message || "Internal Server Error"}`
     });
   }
 };
